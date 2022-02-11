@@ -7,12 +7,25 @@ var products = [
 ];
 
 var arrayCart = [];
+var qtyVal=1;
 
 $("#products").on("click", ".add-to-cart", function () {
   var cartId = $(this).data("pid");
-
+  var arrVal = [];
+  arrVal.push(cartId);
+  for(var i=0; i<arrVal.length; i++)
+  {
+    if(cartId==arrVal[i])
+    {
+      console.log("Values matched");
+      $(".qty").val(qtyVal+1);
+    }
+  }
+  
+  console.log("updated value of qty is : "+ qtyVal);
   for (var i = 0; i < products.length; i++) {
-    if (cartId == products[i].id) {
+    if (cartId == products[i].id) 
+    {
       arrayCart.push(products[i]);
       cartTable();
     }
@@ -22,6 +35,7 @@ $("#products").on("click", ".add-to-cart", function () {
 });
 
 function cartTable() {
+
   var cartable =
     "<table><tr><th>ID</th><th>Name</th><th>Image</th><th>Price</th><th>Quantity</th></tr>";
   console.log("check here"+arrayCart.length);
@@ -35,10 +49,14 @@ function cartTable() {
       arrayCart[i].image +
       "</td><td>" +
       arrayCart[i].price +
-      "</td><td><input type='number' id='qty' value='1'</td></tr>";
+      "</td><td><input type='number' data-mid='txtUpdate' onchange='modifyValue()' value='1'</td></tr>";
   }
-  cartable += "</table>";
+  cartable += "</table><a href='#' id='delCart'>Delete Cart</a>";
   $("#cart").html(cartable);
+  $("#delCart").on("click",function(){
+    arrayCart.length=0;
+    cartTable();
+  })
 }
 
 function display(items) {

@@ -160,3 +160,8 @@ table{
 	width: 50%;
 	padding: 1% 2%;
 }
+
+#delCart{
+	font-size: 1rem;
+	line-height: 1.5;
+}
