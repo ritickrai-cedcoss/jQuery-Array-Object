@@ -4,25 +4,65 @@ var products = [
   { id: 103, name: "Soccer", image: "soccer.png", price: 110 },
   { id: 104, name: "Table Tennis", image: "table-tennis.png", price: 130 },
   { id: 105, name: "Tennis", image: "tennis.png", price: 100 },
-  { id: 103, name: "Soccer", image: "soccer.png", price: 110 },
-  { id: 104, name: "Table Tennis", image: "table-tennis.png", price: 130 },
-  { id: 105, name: "Tennis", image: "tennis.png", price: 100 },
 ];
 
+var arrayCart = [];
 
-$(document).ready(function(){
-   var productsList = '';
-   
-   for(var i=0; i<products.length; i++)
-   {
-    productsList +='<div class="product">\
-    <img src="images/'+products[i].image+'">\
-    <h3 class="title"><a href="#">Product'+products[i].id+'</a></h3>\
-    <span>Price: '+products[i].price+'</span>\
-    <a class="add-to-cart" href="#" data-pid='+products[i].id+'>Add To Cart</a>\
-  </div>'
-   }
+$("#products").on("click", ".add-to-cart", function () {
+  var cartId = $(this).data("pid");
 
-   $("#products").html(productsList);
+  for (var i = 0; i < products.length; i++) {
+    if (cartId == products[i].id) {
+      arrayCart.push(products[i]);
+      cartTable();
+    }
+  }
+  console.log(arrayCart);
+  console.log("Fetching the values " + cartId);
+});
 
+function cartTable() {
+  var cartable =
+    "<table><tr><th>ID</th><th>Name</th><th>Image</th><th>Price</th><th>Quantity</th></tr>";
+  console.log("check here"+arrayCart.length);
+  for (var i = 0; i < arrayCart.length; i++) {
+    cartable +=
+      "<tr><td>" +
+      arrayCart[i].id +
+      "</td><td>" +
+      arrayCart[i].name +
+      "</td><td>" +
+      arrayCart[i].image +
+      "</td><td>" +
+      arrayCart[i].price +
+      "</td><td><input type='number' id='qty' value='1'</td></tr>";
+  }
+  cartable += "</table>";
+  $("#cart").html(cartable);
+}
+
+function display(items) {
+  var productsList = "";
+  for (var i = 0; i < items.length; i++) {
+    productsList +=
+      '<div class="product">\
+    <img src="images/' +
+      products[i].image +
+      '">\
+    <h3 class="title"><a href="#">Product' +
+      products[i].id +
+      "</a></h3>\
+    <span>Price: " +
+      products[i].price +
+      '</span>\
+    <a class="add-to-cart" href="#" data-pid=' +
+      products[i].id +
+      ">Add To Cart</a>\
+    </div>";
+  }
+  $("#products").html(productsList);
+}
+$(document).ready(function () {
+  display(products);
+  cartTable(arrayCart);
 });
