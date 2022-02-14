@@ -1,9 +1,9 @@
 var products = [
-  { id: 101, name: "Basket Ball", image: "basketball.png", price: 150 },
-  { id: 102, name: "Football", image: "football.png", price: 120 },
-  { id: 103, name: "Soccer", image: "soccer.png", price: 110 },
-  { id: 104, name: "Table Tennis", image: "table-tennis.png", price: 130 },
-  { id: 105, name: "Tennis", image: "tennis.png", price: 100 },
+  { id: 101, name: "Basket Ball", image: "basketball.png", price: 150, quantity : 1 },
+  { id: 102, name: "Football", image: "football.png", price: 120, quantity : 1 },
+  { id: 103, name: "Soccer", image: "soccer.png", price: 110, quantity : 1 },
+  { id: 104, name: "Table Tennis", image: "table-tennis.png", price: 130 , quantity : 1},
+  { id: 105, name: "Tennis", image: "tennis.png", price: 100, quantity : 1 },
 ];
 
 var arrayCart = [];
@@ -33,6 +33,11 @@ $("#products").on("click", ".add-to-cart", function () {
   console.log(arrayCart);
   console.log("Fetching the values " + cartId);
 });
+function modifyValue(){
+  var update = $(this).data((arrayCart.quantity).val());
+  console.log("Onchange is working");
+  $("arrayCart.quantity").val(update);
+}
 
 function cartTable() {
 
@@ -49,7 +54,7 @@ function cartTable() {
       arrayCart[i].image +
       "</td><td>" +
       arrayCart[i].price +
-      "</td><td><input type='number' data-mid='txtUpdate' onchange='modifyValue()' value='1'</td></tr>";
+      "</td><td><input type='number' data-mid='"+arrayCart[i].quantity+"' onchange='modifyValue()' value='"+arrayCart[i].quantity+"'</td></tr>";
   }
   cartable += "</table><a href='#' id='delCart'>Delete Cart</a>";
   $("#cart").html(cartable);
